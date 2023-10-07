@@ -2,15 +2,18 @@ package pkg;
 
 public class Empleado {
 
-	public enum TipoEmpleado{Vendedor, Encargado}
+	public enum TipoEmpleado{Vendedor, Encargado, Otro}
 	
-	float calculoNominaBruta(TipoEmpleado tipo, float ventasMes, float horasExtra){
+	public float calculoNominaBruta(TipoEmpleado tipo, float ventasMes, float horasExtra){
 		
 		float salarioBase = 0;
 		
 		float prima = 0;
 		
-		final int PRECIO_HE = 30;
+		float extras = 0;
+		
+		if(horasExtra < 0)
+			horasExtra = 0;
 		
 		if(tipo == TipoEmpleado.Vendedor)
 		{
@@ -21,16 +24,19 @@ public class Empleado {
 			{
 				salarioBase = 2500;
 			}
+			else
+				if(tipo == TipoEmpleado.Otro)
+					return -1;
 		
 		if(ventasMes >= 1500)
 			prima = 200;
 		else
-			if(ventasMes >= 1000 && ventasMes < 1500)
+			if(ventasMes >= 1000)
 				prima = 100;
 		
-			
+		extras = horasExtra * 30;
 		
-		return salarioBase + prima + (horasExtra * PRECIO_HE);
+		return salarioBase + prima + extras;
 	}
 	
 	float calculoNominaNeta(float nominaBruta) {
@@ -47,3 +53,4 @@ public class Empleado {
 	}
 	
 }
+
